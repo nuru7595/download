@@ -38,7 +38,7 @@ function downloadFiles() {
     let index = 0;
 
     function downloadBatch() {
-        for (let i = 0; i < 5 && index < files.length; i++, index++) {
+        if (index < files.length) {
             const file = files[index];
             const link = document.createElement('a');
             link.href = file.url;
@@ -47,11 +47,10 @@ function downloadFiles() {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        }
+            index++;
 
-        // If there are more files, schedule the next batch
-        if (index < files.length) {
-            setTimeout(downloadBatch, 1000);  // Delay of 1 second between batches
+            // Schedule the next image download after 1 second
+            setTimeout(downloadBatch, 1000);
         }
     }
 
