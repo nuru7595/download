@@ -58,3 +58,18 @@ function downloadFile(url, name) {
     link.click();
     document.body.removeChild(link);
 }
+
+function downloadAllImages() {
+    let index = 0;
+
+    function downloadNext() {
+        if (index < files.length) {
+            downloadFile(files[index].url, files[index].name);
+            index++;
+            // Schedule the next download after 1 second
+            setTimeout(downloadNext, 1000); // Adjust time as needed
+        }
+    }
+
+    downloadNext(); // Start downloading all images
+}
